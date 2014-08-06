@@ -1,7 +1,7 @@
 HSAIL-Runtime
 =============
 
-Contains the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA components. This version is consistent with the 1.0 Provisional HSA Runtime Programmer's Reference Manual.
+Contains the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA components. This version is consistent with the 1.0 Provisional HSA Runtime Programmer's Reference Manual. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding documentation and usage.
 
 Contents
 =============
