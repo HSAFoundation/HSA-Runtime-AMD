@@ -1,7 +1,7 @@
 HSAIL-Runtime
 =============
 
-Contains the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA components. This version is consistent with the 1.0 Provisional HSA Runtime Programmer's Reference Manual and targets AMD Kaveri APU on supported platforms. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding documentation and usage.
+Contains the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA components. This version is consistent with the 1.0 Provisional HSA Runtime Programmer's Reference Manual and targets AMD Kaveri APUs on supported platforms. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding target platforms, documentation and usage.
 
 Contents
 =============
