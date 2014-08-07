@@ -17,8 +17,8 @@ The motherboards must support the FM2+ socket, run latest BIOS version and have 
 
 The following is a reference hardware configuration that was used for testing purposes:
 
-    APU: AMD A10-7850K APU
-    Motherboard: ASUS A88X-PRO motherboard (ATX form factor)
-    Memory: G.SKILL Ripjaws X Series 16GB (2 x 8GB) 240-Pin DDR3 SDRAM DDR3 2133
-    OS: Ubuntu 14.04 / Fedora 21 64-bit edition
-    No discrete GPU present in the system
+* APU: AMD A10-7850K APU
+* Motherboard: ASUS A88X-PRO motherboard (ATX form factor)
+* Memory: G.SKILL Ripjaws X Series 16GB (2 x 8GB) 240-Pin DDR3 SDRAM DDR3 2133
+* OS: Ubuntu 14.04 / Fedora 21 64-bit edition
+* No discrete GPU present in the system
