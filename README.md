@@ -8,3 +8,17 @@ This package includes the user-mode API interfaces and libraries necessary for h
 * hsa_ext_finalize.h - Header file exposing the API interface of the HSAIL runtime's HSAIL Finalization extension.
 * libhsa-runtime.so.1 - The 32-bit version of AMD's implementation of the hsa runtime shared library. Both core and extended finalizer functionality is exposed.
 * libhsa-runtime64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime shared library. Both core and extended finalizer functionality is exposed.
+
+Target Platform
+
+This release is intended for use with any hardware configuration that contains a Kaveri APU.
+
+The motherboards must support the FM2+ socket, run latest BIOS version and have the IOMMU enabled in the BIOS.
+
+The following is a reference hardware configuration that was used for testing purposes:
+
+    APU: AMD A10-7850K APU
+    Motherboard: ASUS A88X-PRO motherboard (ATX form factor)
+    Memory: G.SKILL Ripjaws X Series 16GB (2 x 8GB) 240-Pin DDR3 SDRAM DDR3 2133
+    OS: Ubuntu 14.04 / Fedora 21 64-bit edition
+    No discrete GPU present in the system
