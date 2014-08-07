@@ -11,13 +11,11 @@ This package includes the user-mode API interfaces and libraries necessary for h
 
 #### Target Platform
 
-This release is intended for use with any hardware configuration that contains a Kaveri APU.
-
-The motherboards must support the FM2+ socket, run latest BIOS version and have the IOMMU enabled in the BIOS.
-
-The following is a reference hardware configuration that was used for testing purposes:
+This release is intended for use with any hardware configuration that contains a Kaveri APU. The motherboards must support the FM2+ socket, run latest BIOS version and have the IOMMU enabled in the BIOS. The following is a reference hardware configuration that was used for testing purposes:
 
 * APU: AMD A10-7850K APU
 * Motherboard: ASUS A88X-PRO motherboard (ATX form factor)
 * OS: Ubuntu 14.04
 * No discrete GPU present in the system
+
+Refer to the https://github.com/HSAFoundation/HSA-docs/wiki/HSA-Platforms-&-Installation wiki page for additional information on platform support.
