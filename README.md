@@ -24,4 +24,4 @@ Refer to the https://github.com/HSAFoundation/HSA-docs/wiki/HSA-Platforms-&-Inst
 
 There are no explicit installation instructions for the HSAIL Runtime at this time. Applications utilizing the HSAIL runtime must specify how the runtime is utilized, either as a explicitly loaded shared object or a library that is implicitly linked, and the runtime must be installed correctly for the application to appropriately utilize it. Please refer to the application specific documentation in each case.
 
-#### Verify HSAIL Runtime / Driver compatibility
+#### Verify HSAIL Runtime / HSA Driver compatibility
