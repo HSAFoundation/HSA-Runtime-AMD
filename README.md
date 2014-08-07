@@ -9,7 +9,7 @@ This package includes the user-mode API interfaces and libraries necessary for h
 * libhsa-runtime.so.1 - The 32-bit version of AMD's implementation of the hsa runtime shared library. Both core and extended finalizer functionality is exposed.
 * libhsa-runtime64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime shared library. Both core and extended finalizer functionality is exposed.
 
-Target Platform
+#### Target Platform
 
 This release is intended for use with any hardware configuration that contains a Kaveri APU.
 
