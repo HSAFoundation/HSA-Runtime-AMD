@@ -1,4 +1,4 @@
-### AMD Heterogenous System Architecture HSA - Linux HSAIL-Runtime Alpha release for Kaveri
+### AMD Heterogenous System Architecture HSA - Linux HSAIL Runtime Alpha release for Kaveri
 
 This package includes the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA components. This version is consistent with the 1.0 Provisional HSA Runtime Programmer's Reference Manual and targets AMD Kaveri APUs on supported platforms. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding target platforms, documentation and usage.
 
@@ -19,3 +19,9 @@ This release is intended for use with any hardware configuration that contains a
 * No discrete GPU present in the system
 
 Refer to the https://github.com/HSAFoundation/HSA-docs/wiki/HSA-Platforms-&-Installation wiki page for additional information on platform support.
+
+#### Installing and configuring the HSAIL Runtime
+
+There are no explicit installation instructions for the HSAIL Runtime at this time. Applications utilizing the HSAIL runtime must specify how the runtime is utilized, either as a explicitly loaded shared object or a library that is implicitly linked, and the runtime must be installed correctly for the application to appropriately utilize it. Please refer to the application specific documentation in each case.
+
+#### Verify HSAIL Runtime / Driver compatibility
