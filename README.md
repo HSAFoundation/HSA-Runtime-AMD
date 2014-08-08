@@ -29,3 +29,4 @@ There are no explicit installation instructions for the HSAIL Runtime at this ti
 #### Known Issues
 
 * The HSAIL Linker Service Layer does not resolve inter-module dependencies. Modules cannot contain declarations that correspond to definitions in other modules.
+* The hsa_vendor_extension_query and hsa_extension_query APIs are not implemented.
