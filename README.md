@@ -26,7 +26,7 @@ There are no explicit installation instructions for the HSA Runtime at this time
 
 #### Verify HSA Runtime / HSA Driver compatibility
 
-The HSA Runtime interacts with the HSA drivers using a interface library, libhsakmt.so. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work.
+The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work.
 
 #### Known Issues
 
