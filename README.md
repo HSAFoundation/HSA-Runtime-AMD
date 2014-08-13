@@ -61,6 +61,8 @@ To build the sample, simply issue the 'make' command in the sample directory. Th
 * Destroying the queue succeeded.
 * Shutting down the runtime succeeded.
 
+An unsuccessful execution will indicate the step that failed.
+
 #### Known Issues
 
 * The HSAIL Linker Service Layer does not resolve inter-module dependencies. Modules cannot contain declarations that correspond to definitions in other modules.
