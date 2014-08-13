@@ -69,11 +69,9 @@ A successfull execution will print messages simillar to the following:
 An unsuccessful execution will indicate the step that failed.
 
 #### Installation Q & A
-* Q1. I keep getting an error saying 'error while loading shared libraries: libhsakmt.so.1: cannot open shared object file: No such file or directory'
-* A1. The libhsakmt.so.1 library directory isn't in the LD_LIBRARY_PATH or the version of libhsamkt.so.1 is incorrect.
+* Question 1: I keep getting an error saying 'error while loading shared libraries: libhsakmt.so.1: cannot open shared object file: No such file or directory'. Answer: The libhsakmt.so.1 library directory isn't in the LD_LIBRARY_PATH or the version of libhsamkt.so.1 is incorrect.
 
-* Q2. I can initialize the runtime, using hsa_init, but there is no GPU device.
-* A2. The /dev/kfd device is not properly initialized or it has the wrong permissions assigned to it. The command 'ls -l /dev/kfd' will list the permission on the kfd device. It should exist, and have 666 permissions assigned to it. Consult the HSA drivers README for information on how to configure the kfd devices permissions using udev.
+* Question 2: I can initialize the runtime, using hsa_init, but there is no GPU device. Answer: The /dev/kfd device is not properly initialized or it has the wrong permissions assigned to it. The command 'ls -l /dev/kfd' will list the permission on the kfd device. It should exist, and have 0666 permissions assigned to it. Consult the HSA driver documentation for information on how to configure the kfd device.
 
 #### Known Issues
 
