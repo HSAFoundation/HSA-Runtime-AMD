@@ -54,6 +54,7 @@ To build the sample, simply issue the 'make' command in the sample directory. Th
 * Finding a kernarg memory region succeeded.
 * Allocating kernel argument memory buffer succeeded.
 * Registering the argument buffer succeeded.
+* Dispatching the kernel succeeded.
 * Wating on the dispatch signal succeeded.
 * Passed validation
 * Destroying the signal succeeded.
