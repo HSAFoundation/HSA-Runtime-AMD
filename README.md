@@ -26,13 +26,17 @@ There are no explicit installation instructions for the HSA Runtime at this time
 
 #### HSA Runtime / HSA Driver compatibility
 
-The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. This library is packaged with the HSA driver set. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that a compatible version of libhsakmt.so is specified in its LD_LIBRARY_PATH environment variable.
+The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. This library is packaged with the HSA driver set. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that the directory containing a compatible version of libhsakmt.so is specified in the LD_LIBRARY_PATH environment variable.
 
 #### Running the sample - vector_copy ####
 
 A simple sample, vector_copy, is provided in the samples directory of this repository. The sample requires the libelf-dev package to build and execute. This package can be installed on Ubuntu by executing 'sudo apt-get install libelf-dev'.
 
-To build the sample, simply issue the 'make' command in the sample directory. This will create the vectory_copy host executable. When executed, vectory_copy will load the vector_copy.brig ELF file, finalize the associated kernel and execute it on an available GPU device. A successfull execution will print messages simillar to the following:
+To build the sample, simply issue the 'make' command in the sample directory. This will create the vectory_copy host executable. 
+
+When executed, vectory_copy will load the vector_copy.brig ELF file, finalize the associated kernel and execute it on an available GPU device. Both the libhsa-runtime and libhsakmt shared object library directories must be in the LD_LIBRARY_PATH environment variable.
+
+A successfull execution will print messages simillar to the following:
 
 * Initializing the hsa runtime succeeded.
 * Calling hsa_iterate_agents succeeded.
