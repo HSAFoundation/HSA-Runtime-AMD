@@ -24,9 +24,9 @@ Refer to the https://github.com/HSAFoundation/HSA-docs/wiki/HSA-Platforms-&-Inst
 
 There are no explicit installation instructions for the HSA Runtime at this time. Applications utilizing the HSA runtime must specify how the runtime is utilized, either as a explicitly loaded shared object or a library that is implicitly linked, and the runtime must be installed correctly for the application to appropriately utilize it. Please refer each application's specific documentation regarding runtime installation.
 
-#### Verify HSA Runtime / HSA Driver compatibility
+#### HSA Runtime / HSA Driver compatibility
 
-The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work.
+The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. This library is packaged with the HSA driver set. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that a compatible version of libhsakmt.so is specified in its LD_LIBRARY_PATH environment variable.
 
 #### Known Issues
 
