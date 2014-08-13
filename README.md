@@ -55,7 +55,7 @@ To build the sample, simply issue the 'make' command in the sample directory. Th
 * Allocating kernel argument memory buffer succeeded.
 * Registering the argument buffer succeeded.
 * Wating on the dispatch signal succeeded.
-* passed validation
+* Passed validation
 * Destroying the signal succeeded.
 * Destroying the program succeeded.
 * Destroying the queue succeeded.
