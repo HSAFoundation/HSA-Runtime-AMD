@@ -34,32 +34,32 @@ A simple sample, vector_copy, is provided in the samples directory of this repos
 
 To build the sample, simply issue the 'make' command in the sample directory. This will create the vectory_copy host executable. When executed, vectory_copy will load the vector_copy.brig ELF file, finalize the associated kernel and execute it on an available GPU device. A successfull execution will print messages simillar to the following:
 
-*Initializing the hsa runtime succeeded.
-*Calling hsa_iterate_agents succeeded.
-*Checking if the GPU device is non-zero succeeded.
-*Querying the device name succeeded.
-*The device name is Spectre.
-*Querying the device maximum queue size succeeded.
-*The maximum queue size is 131072.
-*Creating the queue succeeded.
-*Creating the brig module from vector_copy.brig succeeded.
-*Creating the hsa program succeeded.
-*Adding the brig module to the program succeeded.
-*Finding the symbol offset for the kernel succeeded.
-*Finalizing the program succeeded.
-*Querying the kernel descriptor address succeeded.
-*Creating a HSA signal succeeded.
-*Registering argument memory for input parameter succeeded.
-*Registering argument memory for output parameter succeeded.
-*Finding a kernarg memory region succeeded.
-*Allocating kernel argument memory buffer succeeded.
-*Registering the argument buffer succeeded.
-*Wating on the dispatch signal succeeded.
-*passed validation
-*Destroying the signal succeeded.
-*Destroying the program succeeded.
-*Destroying the queue succeeded.
-*Shutting down the runtime succeeded.
+* Initializing the hsa runtime succeeded.
+* Calling hsa_iterate_agents succeeded.
+* Checking if the GPU device is non-zero succeeded.
+* Querying the device name succeeded.
+* The device name is Spectre.
+* Querying the device maximum queue size succeeded.
+* The maximum queue size is 131072.
+* Creating the queue succeeded.
+* Creating the brig module from vector_copy.brig succeeded.
+* Creating the hsa program succeeded.
+* Adding the brig module to the program succeeded.
+* Finding the symbol offset for the kernel succeeded.
+* Finalizing the program succeeded.
+* Querying the kernel descriptor address succeeded.
+* Creating a HSA signal succeeded.
+* Registering argument memory for input parameter succeeded.
+* Registering argument memory for output parameter succeeded.
+* Finding a kernarg memory region succeeded.
+* Allocating kernel argument memory buffer succeeded.
+* Registering the argument buffer succeeded.
+* Wating on the dispatch signal succeeded.
+* passed validation
+* Destroying the signal succeeded.
+* Destroying the program succeeded.
+* Destroying the queue succeeded.
+* Shutting down the runtime succeeded.
 
 #### Known Issues
 
