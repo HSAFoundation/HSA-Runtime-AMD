@@ -60,7 +60,7 @@ A successfull execution will print messages simillar to the following:
 * Registering the argument buffer succeeded.
 * Dispatching the kernel succeeded.
 * Wating on the dispatch signal succeeded.
-* Passed validation
+* Passed validation.
 * Destroying the signal succeeded.
 * Destroying the program succeeded.
 * Destroying the queue succeeded.
