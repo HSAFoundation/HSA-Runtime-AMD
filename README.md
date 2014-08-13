@@ -28,6 +28,12 @@ There are no explicit installation instructions for the HSA Runtime at this time
 
 The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. This library is packaged with the HSA driver set. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that a compatible version of libhsakmt.so is specified in its LD_LIBRARY_PATH environment variable.
 
+#### Running the sample - vector_copy ####
+
+A simple sample, vector_copy, is provided in the samples directory of this repository. The sample requires the libelf-dev package to build and execute. This package can be installed on Ubuntu by executing 'sudo apt-get install libelf-dev'.
+
+
+
 #### Known Issues
 
 * The HSAIL Linker Service Layer does not resolve inter-module dependencies. Modules cannot contain declarations that correspond to definitions in other modules.
