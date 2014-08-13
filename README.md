@@ -1,4 +1,4 @@
-### AMD Heterogenous System Architecture HSA - Linux HSA Runtime Alpha release for Kaveri
+### AMD Heterogeneous System Architecture HSA - Linux HSA Runtime Alpha release for Kaveri
 
 This package includes the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA components. This version is consistent with the 1.0 Provisional HSA Runtime Programmer's Reference Manual and targets AMD Kaveri APUs on supported platforms, and is the Alpha version of the HSA Runtime. This version is compatible with the 0.8 version of the HSA driver set. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding target platforms, documentation and usage.
 
@@ -37,7 +37,7 @@ To build the sample, simply issue the 'make' command in the sample directory. Th
 
 When executed, vectory_copy will load the vector_copy.brig ELF file, finalize the associated kernel and execute it on an available GPU device. Both the libhsa-runtime and libhsakmt shared object library directories must be in the LD_LIBRARY_PATH environment variable.
 
-A successfull execution will print messages simillar to the following:
+A successful execution will print messages similar to the following:
 
 * Initializing the hsa runtime succeeded.
 * Calling hsa_iterate_agents succeeded.
