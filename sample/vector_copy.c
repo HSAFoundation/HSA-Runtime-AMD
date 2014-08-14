@@ -28,14 +28,6 @@
 #include "hsa_ext_finalize.h"
 #include "elf_utils.h"
 
-#if defined(_MSC_VER)
-#define ALIGNED_(x) __declspec(align(x))
-#else
-#if defined(__GNUC__)
-#define ALIGNED_(x) __attribute__ ((aligned(x)))
-#endif
-#endif
-
 #define check(msg, status) \
 if (status != HSA_STATUS_SUCCESS) { \
     printf("%s failed.\n", #msg); \
