@@ -121,7 +121,6 @@ static hsa_status_t get_kernarg(hsa_region_t region, void* data) {
     if (flags & HSA_REGION_FLAG_KERNARG) {
         hsa_region_t* ret = (hsa_region_t*) data;
         *ret = region;
-        return HSA_STATUS_SUCCESS;
     }
     return HSA_STATUS_SUCCESS;
 }
@@ -159,7 +158,7 @@ hsa_status_t find_symbol_offset(hsa_ext_brig_module_t* brig_module,
             BrigDirectiveExecutable* directive_kernel = (BrigDirectiveExecutable*) (code_entry);
             BrigDataOffsetString32_t data_name_offset = directive_kernel->name;
             BrigData* data_entry = (BrigData*)((char*) data_section_header + data_name_offset);
-            if (!strcmp(symbol_name, (char*)data_entry->bytes)){
+            if (!strncmp(symbol_name, (char*) data_entry->bytes, strlen(symbol_name))) {
                 *offset = code_offset;
                 return HSA_STATUS_SUCCESS;
             }
@@ -170,8 +169,7 @@ hsa_status_t find_symbol_offset(hsa_ext_brig_module_t* brig_module,
     return HSA_STATUS_ERROR;
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     hsa_status_t err;
 
     err = hsa_init();
@@ -300,8 +298,7 @@ int main(int argc, char **argv)
     err=hsa_memory_register(out, 1024*1024*4);
     check(Registering argument memory for output parameter, err);
 
-    struct args_t
-    {
+    struct __attribute__ ((aligned(HSA_ARGUMENT_ALIGN_BYTES))) args_t {
         void* arg0;
         void* arg1;
     } args;
@@ -370,10 +367,8 @@ int main(int argc, char **argv)
      */
     int valid=1;
     int failIndex=0;
-    for(int i=0; i<1024*1024; i++)
-    {
-        if(out[i]!=in[i])
-        {
+    for(int i=0; i<1024*1024; i++) {
+        if(out[i]!=in[i]) {
             failIndex=i;
             valid=0;
             break;
