@@ -24,9 +24,49 @@ Refer to the https://github.com/HSAFoundation/HSA-docs/wiki/HSA-Platforms-&-Inst
 
 There are no explicit installation instructions for the HSA Runtime at this time. Applications utilizing the HSA runtime must specify how the runtime is utilized, either as a explicitly loaded shared object or a library that is implicitly linked, and the runtime must be installed correctly for the application to appropriately utilize it. Please refer each application's specific documentation regarding runtime installation.
 
-#### Verify HSA Runtime / HSA Driver compatibility
+#### HSA Runtime / HSA Driver compatibility
 
-The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work.
+The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. This library is packaged with the HSA driver set. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that the directory containing a compatible version of libhsakmt.so is specified in the LD_LIBRARY_PATH environment variable.
+
+#### Running the sample - vector_copy ####
+
+A simple sample, vector_copy, is provided in the samples directory of this repository. The sample requires the libelf-dev package to build and execute. This package can be installed on Ubuntu by executing 'sudo apt-get install libelf-dev'.
+
+To build the sample, simply issue the 'make' command in the sample directory. This will create the vectory_copy host executable. 
+
+When executed, vectory_copy will load the vector_copy.brig ELF file, finalize the associated kernel and execute it on an available GPU device. Both the libhsa-runtime and libhsakmt shared object library directories must be in the LD_LIBRARY_PATH environment variable.
+
+A successfull execution will print messages simillar to the following:
+
+* Initializing the hsa runtime succeeded.
+* Calling hsa_iterate_agents succeeded.
+* Checking if the GPU device is non-zero succeeded.
+* Querying the device name succeeded.
+* The device name is Spectre.
+* Querying the device maximum queue size succeeded.
+* The maximum queue size is 131072.
+* Creating the queue succeeded.
+* Creating the brig module from vector_copy.brig succeeded.
+* Creating the hsa program succeeded.
+* Adding the brig module to the program succeeded.
+* Finding the symbol offset for the kernel succeeded.
+* Finalizing the program succeeded.
+* Querying the kernel descriptor address succeeded.
+* Creating a HSA signal succeeded.
+* Registering argument memory for input parameter succeeded.
+* Registering argument memory for output parameter succeeded.
+* Finding a kernarg memory region succeeded.
+* Allocating kernel argument memory buffer succeeded.
+* Registering the argument buffer succeeded.
+* Dispatching the kernel succeeded.
+* Wating on the dispatch signal succeeded.
+* Passed validation
+* Destroying the signal succeeded.
+* Destroying the program succeeded.
+* Destroying the queue succeeded.
+* Shutting down the runtime succeeded.
+
+An unsuccessful execution will indicate the step that failed.
 
 #### Known Issues
 
