@@ -1,6 +1,6 @@
-### AMD Heterogenous System Architecture HSA - Linux HSA Runtime Alpha release for Kaveri
+### AMD Heterogeneous System Architecture HSA - Linux HSA Runtime Alpha release for Kaveri
 
-This package includes the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA components. This version is consistent with the 1.0 Provisional HSA Runtime Programmer's Reference Manual and targets AMD Kaveri APUs on supported platforms, and is the 0.8 version of the HSA Runtime. This version is compatible with the 0.8 version of the HSA driver set. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding target platforms, documentation and usage.
+This package includes the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA components. This version is consistent with the 1.0 Provisional HSA Runtime Programmer's Reference Manual and targets AMD Kaveri APUs on supported platforms, and is the Alpha version of the HSA Runtime. This version is compatible with the 0.8 version of the HSA driver set. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding target platforms, documentation and usage.
 
 #### Package Contents
 
@@ -8,6 +8,7 @@ This package includes the user-mode API interfaces and libraries necessary for h
 * hsa_ext_finalize.h - Header file exposing the API interface of the HSA runtime's HSAIL Finalization extension.
 * libhsa-runtime.so.1 - The 32-bit version of AMD's implementation of the hsa runtime shared library. Both core and extended finalizer functionality is exposed.
 * libhsa-runtime64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime shared library. Both core and extended finalizer functionality is exposed.
+* vector_copy sample - A simple HSA sample illustrating how to load a BRIG module from an ELF container, create and finalize a HSA program and dispatch the resulting HSA kernel.
 
 #### Target Platform
 
@@ -36,7 +37,7 @@ To build the sample, simply issue the 'make' command in the sample directory. Th
 
 When executed, vectory_copy will load the vector_copy.brig ELF file, finalize the associated kernel and execute it on an available GPU device. Both the libhsa-runtime and libhsakmt shared object library directories must be in the LD_LIBRARY_PATH environment variable.
 
-A successfull execution will print messages simillar to the following:
+A successful execution will print messages similar to the following:
 
 * Initializing the hsa runtime succeeded.
 * Calling hsa_iterate_agents succeeded.
@@ -59,14 +60,19 @@ A successfull execution will print messages simillar to the following:
 * Allocating kernel argument memory buffer succeeded.
 * Registering the argument buffer succeeded.
 * Dispatching the kernel succeeded.
-* Wating on the dispatch signal succeeded.
-* Passed validation
+* Waiting on the dispatch signal succeeded.
+* Passed validation.
 * Destroying the signal succeeded.
 * Destroying the program succeeded.
 * Destroying the queue succeeded.
 * Shutting down the runtime succeeded.
 
 An unsuccessful execution will indicate the step that failed.
+
+#### Installation Q & A
+* Question 1: I keep getting an error saying 'error while loading shared libraries: libhsakmt.so.1: cannot open shared object file: No such file or directory'. Answer: The libhsakmt.so.1 library directory isn't in the LD_LIBRARY_PATH or the version of libhsamkt.so.1 is incorrect.
+
+* Question 2: I can initialize the runtime, using hsa_init, but there is no GPU device. Answer: The /dev/kfd device is not properly initialized or it has the wrong permissions assigned to it. The command 'ls -l /dev/kfd' will list the permission on the kfd device. The device /dev/kfd should exist and have 0666 permissions assigned to it. Consult the HSA driver documentation for information on how to configure the kfd device.
 
 #### Known Issues
 
