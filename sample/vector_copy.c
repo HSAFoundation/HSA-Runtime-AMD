@@ -310,6 +310,7 @@ int main(int argc, char **argv)
      */
     hsa_queue_store_write_index_relaxed(commandQueue, index+1);
     hsa_signal_store_relaxed(commandQueue->doorbell_signal, index+1);
+    check(Dispatching the kernel, err);
 
     /*
      * Wait on the dispatch signal until the kernel is finished.
@@ -333,7 +334,7 @@ int main(int argc, char **argv)
     }
 
     if(valid) {
-        printf("passed validation\n");
+        printf("Passed validation\n");
     } else {
         printf("VALIDATION FAILED!\nBad index: %d\n", failIndex);
     }
