@@ -23,7 +23,7 @@ Refer to the https://github.com/HSAFoundation/HSA-docs/wiki/HSA-Platforms-&-Inst
 
 #### Installing and configuring the HSA Runtime
 
-Download the HSA-Runtime-AMD from the repository: Downloading the kernel binaries from the repo: 'git clone https://github.com/HSAFoundation/HSA-Runtime-AMD.git'
+Download the HSA-Runtime-AMD from the repository: 'git clone https://github.com/HSAFoundation/HSA-Runtime-AMD.git'
 
 There are no explicit installation instructions for the HSA Runtime at this time. Applications utilizing the HSA runtime must specify how the runtime is utilized, either as a explicitly loaded shared object or a library that is implicitly linked, and the runtime must be installed correctly for the application to appropriately utilize it. Please refer each application's specific documentation regarding runtime installation.
 
