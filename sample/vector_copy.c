@@ -242,16 +242,16 @@ int main(int argc, char **argv) {
     check(Finding the symbol offset for the kernel, err);
 
     /*
-     * Destroy the brig module. The program was successfully created and the kernel
-     * symbol was found, so it is no longer needed.
-     */
-     destroy_brig_module(brigModule);
-
-    /*
      * Finalize the hsa program.
      */
     err = hsa_ext_finalize_program(hsaProgram, device, 1, &finalization_request_list, NULL, NULL, 0, NULL, 0);
     check(Finalizing the program, err);
+
+    /*
+     * Destroy the brig module. The program was successfully created the kernel
+     * symbol was found and the program was finalized, so it is no longer needed.
+     */
+     destroy_brig_module(brigModule);
 
     /*
      * Get the hsa code descriptor address.
