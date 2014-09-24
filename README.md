@@ -72,10 +72,15 @@ A successful execution will print messages similar to the following:
 
 An unsuccessful execution will indicate the step that failed.
 
-#### Installation Q & A
-* Question 1: I keep getting an error saying 'error while loading shared libraries: libhsakmt.so.1: cannot open shared object file: No such file or directory'. Answer: The libhsakmt.so.1 library directory isn't in the LD_LIBRARY_PATH or the version of libhsamkt.so.1 is incorrect.
+#### Q & A
+1. I keep getting an error saying *'error while loading shared libraries: libhsakmt.so.1: cannot open shared object file: No such file or directory'*?
+  * The libhsakmt.so.1 library directory isn't in the LD\_LIBRARY\_PATH or the version of libhsamkt.so.1 is incorrect.
 
-* Question 2: I can initialize the runtime, using hsa_init, but there is no GPU device. Answer: The /dev/kfd device is not properly initialized or it has the wrong permissions assigned to it. The command 'ls -l /dev/kfd' will list the permission on the kfd device. The device /dev/kfd should exist and have 0666 permissions assigned to it. Consult the HSA driver documentation for information on how to configure the kfd device.
+2. I can initialize the runtime, using hsa\_init, but there is no GPU device?
+  * The /dev/kfd device is not properly initialized or it has the wrong permissions assigned to it. The command 'ls -l /dev/kfd' will list the permission on the kfd device. The device /dev/kfd should exist and have 0666 permissions assigned to it. Consult the HSA driver documentation for information on how to configure the kfd device.
+
+3. How do you disassemble a finalized binary of an HSAIL program (in device native ISA)?
+  * You can either pass the "-cf-dump-isa" to options in hsa\_ext\_finalize\_program or set the environment variable CORE\_FINALIZER\_APPEND\_OPTIONS="-cf-dump-isa".
 
 #### Known Issues
 
