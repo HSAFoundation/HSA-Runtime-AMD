@@ -17,7 +17,7 @@ This release is intended for use with any hardware configuration that contains a
 
 * APU: AMD A10-7850K APU
 * Motherboard: ASUS A88X-PRO motherboard (ATX form factor)
-* OS: Ubuntu 14.04, Fedora 2
+* OS: Ubuntu 14.04, Fedora 21
 * No discrete GPU present in the system
 
 Refer to the https://github.com/HSAFoundation/HSA-docs/wiki/HSA-Platforms-&-Installation wiki page for additional information on platform support.
