@@ -19,7 +19,7 @@
 ## LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 ## FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.
 
-LFLAGS= -g  -Wl,--unresolved-symbols=ignore-in-shared-libs
+LFLAGS= -Wl,--unresolved-symbols=ignore-in-shared-libs
 
 CC := gcc
 
@@ -30,7 +30,7 @@ OBJ_FILES := $(notdir $(C_FILES:.c=.o))
 all: vector_copy
 
 vector_copy: $(OBJ_FILES)
-	$(CC) $(LFLAGS) $(OBJ_FILES) -lelf -L../lib/x86_64 -lhsa-runtime64 -o vector_copy
+	$(CC) $(LFLAGS) $(OBJ_FILES) -lelf -L../lib -lhsa-runtime64 -o vector_copy
 
 %.o: %.c
 	gcc -c -I../include -o $@ $< -std=c99

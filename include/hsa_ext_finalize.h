@@ -35,229 +35,6 @@
 extern "C" {
 #endif // __cplusplus
 
-/// @todo kzhuravl 6/23/2014 partially redefine some of the definitions from
-/// hsa.h until hsa.h is moved to drivers/inc/shared. Once hsa.h is moved to
-/// drivers/inc/shared following #if block can be substituted with #include
-/// hsa.h.
-#ifndef OBSIDIAN_RUNTIME
-
-/// Placeholder for calling convention.
-#define HSA_API
-
-///------------------------------------------------------------------------///
-/// status.
-///------------------------------------------------------------------------///
-
-/**
- * TODO
- */
-typedef enum {
-  /**
-   * The function has been executed successfully.
-   */
-  HSA_STATUS_SUCCESS = 0,
-
-  /**
-   * A traversal over a list of elements has been interrupted by the
-   * application before completing.
-   */
-  HSA_STATUS_INFO_BREAK = 0x1,
-
-  /**
-   * An initialization attempt failed due to prior initialization.
-   */
-  HSA_EXT_STATUS_INFO_ALREADY_INITIALIZED = 0x4000,
-
-  /**
-   * The finalization options cannot be recognized.
-   */
-  HSA_EXT_STATUS_INFO_UNRECOGNIZED_OPTIONS = 0x4001,
-
-  /**
-   * A generic error has occurred.
-   */
-  HSA_STATUS_ERROR = 0x10000,
-
-  /**
-   * One of the actual arguments does not meet a precondition stated in the
-   * documentation of the corresponding formal argument.
-   */
-  HSA_STATUS_ERROR_INVALID_ARGUMENT = 0x10001,
-
-  /**
-   * The requested queue creation is not valid.
-   */
-  HSA_STATUS_ERROR_INVALID_QUEUE_CREATION = 0x10002,
-
-  /**
-   * The requested allocation is not valid.
-   */
-  HSA_STATUS_ERROR_INVALID_ALLOCATION = 0x10003,
-
-  /**
-   * The agent is invalid.
-   */
-  HSA_STATUS_ERROR_INVALID_AGENT = 0x10004,
-
-  /**
-   * The memory region is invalid.
-   */
-  HSA_STATUS_ERROR_INVALID_REGION = 0x10005,
-
-  /**
-   * The signal is invalid.
-   */
-  HSA_STATUS_ERROR_INVALID_SIGNAL = 0x10006,
-
-  /**
-   * The queue is invalid.
-   */
-  HSA_STATUS_ERROR_INVALID_QUEUE = 0x10007,
-
-  /**
-   * The runtime failed to allocate the necessary resources. This error
-   * may also occur when the core runtime library needs to spawn threads or
-   * create internal OS-specific events.
-   */
-  HSA_STATUS_ERROR_OUT_OF_RESOURCES = 0x10008,
-
-  /**
-   * The AQL packet is malformed.
-   */
-  HSA_STATUS_ERROR_INVALID_PACKET_FORMAT = 0x10009,
-
-  /**
-   * An error has been detected while releasing a resource.
-   */
-  HSA_STATUS_ERROR_RESOURCE_FREE = 0x1000A,
-
-  /**
-   * An API other than ::hsa_init has been invoked while the reference count
-   * of the HSA runtime is zero.
-   */
-  HSA_STATUS_ERROR_NOT_INITIALIZED = 0x1000B,
-
-  /**
-   * The maximum reference count for the object has been reached.
-   */
-  HSA_STATUS_ERROR_REFCOUNT_OVERFLOW = 0x1000C,
-
-  /**
-   * Mismatch between a directive in the control directive structure and in
-   * the HSAIL kernel.
-   */
-  HSA_EXT_STATUS_ERROR_DIRECTIVE_MISMATCH = 0x14000,
-
-  /**
-   * Image format is not supported.
-   */
-  HSA_EXT_STATUS_ERROR_IMAGE_FORMAT_UNSUPPORTED = 0x14001,
-
-  /**
-   * Image size is not supported.
-   */
-  HSA_EXT_STATUS_ERROR_IMAGE_SIZE_UNSUPPORTED = 0x14002
-} hsa_status_t;
-
-///------------------------------------------------------------------------///
-/// agentinfo.
-///------------------------------------------------------------------------///
-
-/**
- * @brief Opaque handle representing an agent, a device that participates in the
- * HSA memory model. An agent can submit AQL packets for execution, and might
- * also accept AQL packets for execution (Agent Dispatch packets or Dispatch
- * packets launching HSAIL-derived binaries).
- */
-typedef uint64_t hsa_agent_t;
-
-///------------------------------------------------------------------------///
-/// common.
-///------------------------------------------------------------------------///
-
-/**
- * @brief Value expressed as a power of 2.
- */
-typedef uint8_t hsa_powertwo8_t;
-
-/**
- * @brief Power of two between 1 and 256.
- */
-typedef enum {
-  HSA_POWERTWO_1 = 0,
-  HSA_POWERTWO_2 = 1,
-  HSA_POWERTWO_4 = 2,
-  HSA_POWERTWO_8 = 3,
-  HSA_POWERTWO_16 = 4,
-  HSA_POWERTWO_32 = 5,
-  HSA_POWERTWO_64 = 6,
-  HSA_POWERTWO_128 = 7,
-  HSA_POWERTWO_256 = 8
-} hsa_powertwo_t;
-
-/**
- * @brief Three-dimensional coordinate.
- */
-typedef struct hsa_dim3_s {
-  /**
-   * X dimension.
-   */
-  uint32_t x;
-
-  /**
-   * Y dimension.
-   */
-  uint32_t y;
-
-  /**
-   * Z dimension.
-   */
-  uint32_t z;
-} hsa_dim3_t;
-
-/**
-* @brief Dimensions in a 3D space.
-*/
-typedef enum {
-  /**
-   * X dimension.
-   */
-  HSA_DIM_X = 0,
-
-  /**
-   * Y dimension.
-   */
-  HSA_DIM_Y = 1,
-
-  /**
-   * Z dimension.
-   */
-  HSA_DIM_Z = 2
-} hsa_dim_t;
-
-/**
- * @brief Opaque pointer that is passed to all runtime functions that use
- * callbacks. The runtime passes this pointer as the first argument to all
- * callbacks made by the function.
- */
-typedef struct hsa_runtime_caller_s {
-  /**
-   * Opaque pointer that is passed as the first argument to callback
-   * functions invoked by a runtime function.
-   */
-  uint64_t caller;
-} hsa_runtime_caller_t;
-
-/**
- * @brief Call back function for allocating data.
- */
-typedef hsa_status_t (*hsa_runtime_alloc_data_callback_t)(
-  hsa_runtime_caller_t caller,
-  size_t byte_size,
-  void **address);
-
-#endif // OBSIDIAN_RUNTIME
-
 ///------------------------------------------------------------------------///
 /// finalizer.
 ///------------------------------------------------------------------------///
@@ -1058,7 +835,7 @@ typedef hsa_status_t (*hsa_ext_symbol_definition_callback_t)(
   hsa_ext_brig_module_handle_t module,
   hsa_ext_brig_code_section_offset32_t symbol,
   hsa_ext_brig_module_handle_t *definition_module,
-  hsa_ext_brig_module_t *definition_module_brig,
+  hsa_ext_brig_module_t **definition_module_brig,
   hsa_ext_brig_code_section_offset32_t *definition_symbol);
 
 /**
@@ -1697,7 +1474,7 @@ hsa_status_t HSA_API hsa_ext_query_program_modules(
 hsa_status_t HSA_API hsa_ext_query_program_brig_module(
   hsa_ext_program_handle_t program,
   hsa_ext_brig_module_handle_t module,
-  hsa_ext_brig_module_t *brig_module);
+  hsa_ext_brig_module_t **brig_module);
 
 /**
  * @brief Queries call convention IDs used for a specified HSA agent of a
@@ -1753,7 +1530,7 @@ hsa_status_t HSA_API hsa_ext_query_symbol_definition(
   hsa_ext_brig_module_handle_t module,
   hsa_ext_brig_code_section_offset32_t symbol,
   hsa_ext_brig_module_handle_t *definition_module,
-  hsa_ext_brig_module_t *definition_module_brig,
+  hsa_ext_brig_module_t **definition_module_brig,
   hsa_ext_brig_code_section_offset32_t *definition_symbol);
 
 /**
