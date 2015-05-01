@@ -334,6 +334,9 @@ int main(int argc, char **argv) {
     /*
      * Cleanup all allocated resources.
      */
+    err = hsa_memory_free(kernarg_address);
+    check(Freeing kernel argument memory buffer, err);
+
     err=hsa_signal_destroy(signal);
     check(Destroying the signal, err);
 
