@@ -40,7 +40,7 @@ Applications utilizing the HSA runtime must specify how the runtime is utilized,
 
 #### HSA Runtime / HSA Driver compatibility
 
-The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. This library is packaged with the HSA driver set, and is available in the HSA-Drivers-Linux-AMD repository at this link https://github.com/HSAFoundation/HSA-Drivers-Linux-AMD/tree/master/kfd-1.0/libhsakmt. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that the directory containing a compatible version of libhsakmt.so is specified in the LD_LIBRARY_PATH environment variable.
+The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so. This library is packaged with the HSA driver set, and is available in the HSA-Drivers-Linux-AMD repository at this link https://github.com/HSAFoundation/HSA-Drivers-Linux-AMD/kfd-1.4/libhsakmt. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that the directory containing a compatible version of libhsakmt.so is specified in the LD_LIBRARY_PATH environment variable.
 
 #### Running the sample - vector_copy ####
 
