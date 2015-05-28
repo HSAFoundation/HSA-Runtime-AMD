@@ -105,8 +105,8 @@ An unsuccessful execution will indicate the step that failed.
 * f16 operations on Kaveri hardware
 * Flat private
 * The following queries are not implemented:
-* ** hsa_code_symbol_get_info: HSA_CODE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
-* ** hsa_executable_symbol_get_info: HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_OBJECT, HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
+ * hsa_code_symbol_get_info: HSA_CODE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
+ * hsa_executable_symbol_get_info: HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_OBJECT, HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
 
 #### Known Issues
 
@@ -117,10 +117,10 @@ An unsuccessful execution will indicate the step that failed.
 * Image import/export/copy/fill only support image created with memory from host accessible region.
 * hsa_system_get_extension_table is not implemented for HSA_EXTENSION_AMD_PROFILER.
 * hsa_ext_program_finalize has the following restrictions:
-* ** Programs that contain calls to functions defined in a different module are not supported.
-* ** When the "-g -O0" options (debugger enabled) are specified, only programs with a single module that contains one or more kernel are supported.
-* ** When the "-g -O0" options (debugger enabled) are specified, global variable debug information is not generated.
-* ** Control directives provided in a hsa_ext_program_finalize call are ignored.
+ * Programs that contain calls to functions defined in a different module are not supported.
+ * When the "-g -O0" options (debugger enabled) are specified, only programs with a single module that contains one or more kernel are supported.
+ * When the "-g -O0" options (debugger enabled) are specified, global variable debug information is not generated.
+ * Control directives provided in a hsa_ext_program_finalize call are ignored.
 
 ### Disclaimer
 
