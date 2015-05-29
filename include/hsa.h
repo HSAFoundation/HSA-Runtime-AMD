@@ -727,8 +727,7 @@ typedef enum {
    * Minor version of the HSA runtime specification supported by the
    * agent. The type of this attribute is uint16_t.
    */
-  HSA_AGENT_INFO_VERSION_MINOR = 22,
-  HSA_AGENT_INFO_COUNT = 25
+  HSA_AGENT_INFO_VERSION_MINOR = 22
 } hsa_agent_info_t;
 
 /**
@@ -1791,8 +1790,7 @@ typedef enum {
    * express complex dependencies between multiple packets. All queues support
    * this packet type.
    */
-  HSA_PACKET_TYPE_BARRIER_OR = 5,
-  HSA_PACKET_TYPE_COUNT = 6
+  HSA_PACKET_TYPE_BARRIER_OR = 5
 } hsa_packet_type_t;
 
 /**
@@ -2162,11 +2160,7 @@ typedef enum {
    * Group segment. Used to hold data that is shared by the work-items of a
    * work-group.
    */
-  HSA_REGION_SEGMENT_GROUP = 3,
-  /* TODO: non-standard enums */
-  HSA_REGION_SEGMENT_ARG = 4,
-  HSA_REGION_SEGMENT_KERNARG = 5,
-  HSA_REGION_SEGMENT_SPILL = 6
+  HSA_REGION_SEGMENT_GROUP = 3
 } hsa_region_segment_t;
 
 /**
@@ -2248,8 +2242,7 @@ typedef enum {
    * ::HSA_REGION_INFO_RUNTIME_ALLOC_ALLOWED is true for this region, and must
    * be a power of 2. The type of this attribute is size_t.
    */
-  HSA_REGION_INFO_RUNTIME_ALLOC_ALIGNMENT = 7,
-  HSA_REGION_INFO_COUNT = 8
+  HSA_REGION_INFO_RUNTIME_ALLOC_ALIGNMENT = 7
 } hsa_region_info_t;
 
 /**

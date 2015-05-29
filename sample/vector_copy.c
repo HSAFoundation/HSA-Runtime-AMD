@@ -209,7 +209,7 @@ int main(int argc, char **argv) {
     * Extract the symbol from the executable.
     */
     hsa_executable_symbol_t symbol;
-    err = hsa_executable_get_symbol(executable, "", "&__vector_copy_kernel", agent, 0, &symbol);
+    err = hsa_executable_get_symbol(executable, NULL, "&__vector_copy_kernel", agent, 0, &symbol);
     check(Extract the symbol from the executable, err);
 
     /*
@@ -284,8 +284,6 @@ int main(int argc, char **argv) {
     const uint32_t queueMask = queue->size - 1;
     hsa_kernel_dispatch_packet_t* dispatch_packet = &(((hsa_kernel_dispatch_packet_t*)(queue->base_address))[index&queueMask]);
 
-    dispatch_packet->header |= HSA_FENCE_SCOPE_SYSTEM << HSA_PACKET_HEADER_ACQUIRE_FENCE_SCOPE;
-    dispatch_packet->header |= HSA_FENCE_SCOPE_SYSTEM << HSA_PACKET_HEADER_RELEASE_FENCE_SCOPE;
     dispatch_packet->setup  |= 1 << HSA_KERNEL_DISPATCH_PACKET_SETUP_DIMENSIONS;
     dispatch_packet->workgroup_size_x = (uint16_t)256;
     dispatch_packet->workgroup_size_y = (uint16_t)1;
@@ -298,7 +296,13 @@ int main(int argc, char **argv) {
     dispatch_packet->kernarg_address = (void*) kernarg_address;
     dispatch_packet->private_segment_size = private_segment_size;
     dispatch_packet->group_segment_size = group_segment_size;
-    __atomic_store_n((uint8_t*)(&dispatch_packet->header), (uint8_t)HSA_PACKET_TYPE_KERNEL_DISPATCH, __ATOMIC_RELEASE);
+
+    uint16_t header = 0;
+    header |= HSA_FENCE_SCOPE_SYSTEM << HSA_PACKET_HEADER_ACQUIRE_FENCE_SCOPE;
+    header |= HSA_FENCE_SCOPE_SYSTEM << HSA_PACKET_HEADER_RELEASE_FENCE_SCOPE;
+    header |= HSA_PACKET_TYPE_KERNEL_DISPATCH << HSA_PACKET_HEADER_TYPE;
+
+    __atomic_store_n((uint16_t*)(&dispatch_packet->header), header, __ATOMIC_RELEASE);
 
     /*
      * Increment the write index and ring the doorbell to dispatch the kernel.

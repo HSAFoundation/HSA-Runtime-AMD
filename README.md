@@ -102,41 +102,27 @@ An unsuccessful execution will indicate the step that failed.
 * debugtrap
 * Indirect calls
 * Exception operations; exceptions do not occur. HSAIL operations (enablebreakexceptions, enabledetectexceptions, cleardetectexcept getdetectexcept, setdetectexcept) are not implemented.
-* Aggregate initializers (new functionality in 1.0 Final)
-* Image initializers (sampler initializers work)
 * f16 operations on Kaveri hardware
-* Flat private 
+* Flat private
 * The following queries are not implemented:
-  ** hsa_code_symbol_get_info: HSA_CODE_SYMBOL_INFO_VARIABLE_ALIGNMENT, HSA_CODE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
-  ** hsa_executable_symbol_get_info: HSA_EXECUTABLE_SYMBOL_INFO_VARIABLE_ALIGNMENT, HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_OBJECT, HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
-  ** hsa_isa_get_info: HSA_ISA_INFO_CALL_CONVENTION_COUNT, HSA_ISA_INFO_CALL_CONVENTION_INFO_WAVEFRONT_SIZE, HSA_ISA_INFO_CALL_CONVENTION_INFO_WAVEFRONTS_PER_COMPUTE_UNIT
-* The following queries are not implemented: 
-   * hsa_code_symbol_get_info: HSA_CODE_SYMBOL_INFO_VARIABLE_ALIGNMENT, HSA_CODE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION 
-   * hsa_executable_symbol_get_info: HSA_EXECUTABLE_SYMBOL_INFO_VARIABLE_ALIGNMENT, HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_OBJECT, HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
-   * hsa_isa_get_info: HSA_ISA_INFO_CALL_CONVENTION_COUNT, HSA_ISA_INFO_CALL_CONVENTION_INFO_WAVEFRONT_SIZE, HSA_ISA_INFO_CALL_CONVENTION_INFO_WAVEFRONTS_PER_COMPUTE_UNIT
+  ** hsa_code_symbol_get_info: HSA_CODE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
+  ** hsa_executable_symbol_get_info: HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_OBJECT, HSA_EXECUTABLE_SYMBOL_INFO_INDIRECT_FUNCTION_CALL_CONVENTION
 
 #### Known Issues
 
-* Signals do not support multiple concurrent HOST waiters unless the the environment variable HSA_ENABLE_INTTERUPT=0.
+* Error handling/reporting during AQL packet processing or execution is not fully supported, as a result the spread of failures may not be localized to the queue.
+* Power-efficient signals (default operation) have some race conditions when used in multiple queues or multiple threads and require HSA_ENABLE_INTERRUPT=0 to eliminate them.
+* Max total coarse grain region limit is 8GB.
 * hsa_agent_get_exception_policies is not implemented.
 * Image import/export/copy/fill only support image created with memory from host accessible region.
-* Coarse grain memory usage may claim one user mode queue internally to do memory copy and reduce the number of max queue that can be created.
-* hsa_memory_allocate can an return invalid status when an allocation size of 0 bytes is specified.
 * hsa_system_get_extension_table is not implemented for HSA_EXTENSION_AMD_PROFILER.
-* hsa_ext_image_copy only support source and destination with the same image format. It does not support SRGBA to linear RGBA conversion and vice versa.
-* Acquire and release only synchronize on segment of the operation, matchng SysArch 1.0 provisonal.  
 * hsa_ext_program_finalize has the following restrictions:
   ** Programs that contain calls to functions defined in a different module are not supported.
-  ** Programs with external global/readonly variables (ones that have no definition) are not supported.
-  ** When the "-g -O0" options (debugger enabled) are specified, only programs with a single module that contains a single kernel are supported.
-   * Programs that contain calls to functions defined in a different module are not supported. 
-   * Programs with external global/readonly variables (ones that have no definition) are not supported. 
-   * When the "-g -O0" options (debugger enabled) are specified, only programs with a single module that contains a single kernel are supported.
-* Global/readonly variables only work with online compilation.
-* Serialization/deserialization only works without global/readonly variables.
-* Code objects can only be loaded once.
+  ** When the "-g -O0" options (debugger enabled) are specified, only programs with a single module that contains one or more kernel are supported.
+  ** When the "-g -O0" options (debugger enabled) are specified, global variable debug information is not generated.
+  ** Control directives provided in a hsa_ext_program_finalize call are ignored.
 
-#### Disclaimer
+### Disclaimer
 
 The information contained herein is for informational purposes only, and is subject to change without notice. While every precaution has been taken in the preparation of this document, it may contain technical inaccuracies, omissions and typographical errors, and AMD is under no obligation to update or otherwise correct this information. Advanced Micro Devices, Inc. makes no representations or warranties with respect to the accuracy or completeness of the contents of this document, and assumes no liability of any kind, including the implied warranties of noninfringement, merchantability or fitness for particular purposes, with respect to the operation or use of AMD hardware, software or other products described herein. No license, including implied or arising by estoppel, to any intellectual property rights is granted by this document. Terms and limitations applicable to the purchase or use of AMD's products are as set forth in a signed agreement between the parties or in AMD's Standard Terms and Conditions of Sale.
 

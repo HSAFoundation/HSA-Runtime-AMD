@@ -662,10 +662,6 @@ hsa_status_t HSA_API
                         const void *data,
                         const hsa_ext_image_region_t *image_region);
 
-hsa_status_t HSA_API hsa_ext_get_image_info_max_dim(hsa_agent_t component,
-                                                    hsa_agent_info_t attribute,
-                                                    void *value);
-
 /**
  * @brief Sampler handle. Samplers are populated by
  * ::hsa_ext_sampler_create. Sampler handles are only unique within an

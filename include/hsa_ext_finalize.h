@@ -53,7 +53,8 @@
 extern "C" {
 #endif // __cplusplus
 
-typedef void* BrigModule_t;
+struct BrigModuleHeader;
+typedef struct BrigModuleHeader* BrigModule_t;
 
 /** \defgroup ext-alt-finalizer-extensions Finalization Extensions
  *  @{
