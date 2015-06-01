@@ -96,6 +96,9 @@ An unsuccessful execution will indicate the step that failed.
 3. **The kernels that I create using CLOC version 0.7.5 don't work with this runtime. Why is that?**
   * The 0.7.5 version of CLOC generates 1.0 Provisional HSAIL, which is incompatible with the 1.0 Final version of the runtime. CLOC and other HSAIL related tools will need to be updated to the final HSAIL specification before they are compatible.
 
+4. **On Fedora 21 queue creation is failing and I get a dmesg error with the following entry "avc:  denied  { execheap }"**
+  * Fedora 21 comes with the SELinux enabled by default. To create an HSA queue, users must be able to set allocated memory executable. To allow a user to do this, disable the SELinux restriction with the following command - `setsebool -P selinuxuser_execheap 1`
+
 #### Unimplemented functionality
 
 * alloca
