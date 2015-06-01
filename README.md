@@ -9,6 +9,7 @@ This package includes the user-mode API interfaces and libraries necessary for h
 * hsa_ext_finalize.h - Header file exposing the API interface of the HSA runtime's HSAIL Finalization extension.
 * libhsa-runtime64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime's core functionality.
 * libhsa-runtime-ext64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime's shared library's extended finalizer and images functionality.
+* libhsakmt.so.1 - The 64-bit version of the thunk interface, compatible with the 1.4 version of the HSA-Drivers-Linux-AMD driver set.
 * vector_copy sample - A simple HSA sample illustrating how to load a BRIG module from an ELF container, create and finalize a HSA program and dispatch the resulting HSA kernel.
 
 #### Target Platform
