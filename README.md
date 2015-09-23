@@ -1,47 +1,42 @@
-### AMD Heterogeneous System Architecture HSA - HSA Runtime release for AMD 7000 series APUs
+### AMD Heterogeneous System Architecture HSA - HSA Runtime release for AMD Kaveri & Carrizo APUs
 
-This package includes the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA kernel agent. This version implements the 1.0 Final HSA Runtime Programmer's Reference Manual and targets AMD 7000 series APUs on supported platforms. The package is compatible with the 1.0 version of the HSA driver set. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding target platforms, documentation and usage.
+This package includes the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA kernel agent. This version implements the 1.0 Final HSA Runtime Programmer's Reference Manual and targets AMD Kaveri & Carrizo series APUs on supported platforms. The package is compatible with the 1.6 version of the HSA driver set. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding target platforms, documentation and usage.
 
 #### Package Contents
 
 * hsa.h - Header file exposing the API interface of the HSA runtime's core functionality.
 * hsa_ext_image.h - Header file exposing the API interface of the HSA runtime's image extension.
 * hsa_ext_finalize.h - Header file exposing the API interface of the HSA runtime's HSAIL Finalization extension.
+* amd_hsa_common.h - AMD internal interface. This file is subject to change without notice.
+* amd_hsa_elf.h - AMD internal interface. This file is subject to change without notice.
+* amd_hsa_kernel_code.h - AMD internal interface. This file is subject to change without notice.
+* amd_hsa_queue.h - AMD internal interface. This file is subject to change without notice.
+* amd_hsa_signal.h - AMD internal interface. This file is subject to change without notice.
 * libhsa-runtime64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime's core functionality.
-* libhsa-runtime-ext64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime's shared library's extended finalizer and images functionality.
-* libhsakmt.so.1 - The 64-bit version of the thunk interface, compatible with the 1.4 version of the HSA-Drivers-Linux-AMD driver set.
+* libhsa-runtime-image64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime's image extension.
+* libhsa-runtime-finalize64.so.1 - The 64-bit version of AMD's implementation of the hsa runtime's finalizer extension.
+* libhsa-runtime-tools64.so.1 - The 64-bit version of HSA debug, trace and profiling support tools for AMD hardware.
 * vector_copy sample - A simple HSA sample illustrating how to load a BRIG module from an ELF container, create and finalize a HSA program and dispatch the resulting HSA kernel.
-
-#### Target Platform
-
-This release is intended for use with any hardware configuration that contains an AMD 7000 series APU. The motherboards must support the FM2+ socket, run the latest BIOS version and have the IOMMU enabled in the BIOS. The following is a reference hardware configuration that was used for testing purposes:
-
-* APU: AMD A10-7850K APU
-* Motherboard: ASUS A88X-PRO motherboard (ATX form factor)
-* OS: Ubuntu 14.04, Fedora 21
-* No discrete GPU present in the system
-
-Refer to the https://github.com/HSAFoundation/HSA-docs/wiki/HSA-Platforms-&-Installation wiki page for additional information on platform support.
 
 #### Installing and configuring the HSA Runtime
 
 Download the HSA-Runtime-AMD from the repository: git clone https://github.com/HSAFoundation/HSA-Runtime-AMD.git
 
-Install the appropriate package for the target operating system (Debian on Ubuntu 14.04 or RPM for Fedora 21). The libraries, header files and samples will be installed in the /opt/hsa directory of the system.
+Install the appropriate package for the target operating system. The libraries, header files and samples will be installed in the /opt/hsa directory of the system.
 
 Ubuntu 14.04:
 
-dpkg -i hsa-runtime_1.0_amd64.deb
+dpkg -i hsa-runtime_1.0.3_amd64.deb
 
 Fedora 21:
 
-rpm -i hsa-runtime-1.0-0.fc21.x86_64.rpm
+Support for Fedora 21 is not provided in this release or in the associated driver release
  
 Applications utilizing the HSA runtime must specify how the runtime is utilized, either as an explicitly loaded shared object or a library that is implicitly linked, and the runtime must be installed correctly for the application to appropriately utilize it. Please refer each application's specific documentation regarding runtime installation.
 
 #### HSA Runtime / HSA Driver compatibility
 
-The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so.1. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that the directory containing a compatible version of libhsakmt.so is specified in the LD_LIBRARY_PATH environment variable. The version of libhsakmt.so.1 compatible with this runtime is available in the 1.4 release of the driver set.
+The HSA Runtime interacts with the HSA drivers using an interface library, libhsakmt.so.1. The HSA Runtime is dynamically linked with this library, which must be compatible with both the runtime and the HSA driver to properly work. Any executable that uses the HSA runtime library will require that the directory containing a compatible version of libhsakmt.so is specified in the LD_LIBRARY_PATH environment variable. The version of libhsakmt.so.1 compatible with this runtime is available in the 1.6 release of the driver set.
 
 #### Running the sample - vector_copy ####
 
@@ -96,9 +91,6 @@ An unsuccessful execution will indicate the step that failed.
 3. **The kernels that I create using CLOC version 0.7.5 don't work with this runtime. Why is that?**
   * The 0.7.5 version of CLOC generates 1.0 Provisional HSAIL, which is incompatible with the 1.0 Final version of the runtime. CLOC and other HSAIL related tools will need to be updated to the final HSAIL specification before they are compatible.
 
-4. **On Fedora 21 queue creation is failing and I get a dmesg error with the following entry "avc:  denied  { execheap }".**
-  * Fedora 21 comes with the SELinux enabled by default. To create an HSA queue, users must be able to set allocated memory executable. To allow a user to do this, disable the SELinux restriction with the following command - `setsebool -P selinuxuser_execheap 1`
-
 #### Unimplemented functionality
 
 * alloca
@@ -114,16 +106,11 @@ An unsuccessful execution will indicate the step that failed.
 
 #### Known Issues
 
-* Error handling/reporting during AQL packet processing or execution is not fully supported, as a result the spread of failures may not be localized to the queue.
-* Power-efficient signals (default operation) have some race conditions when used in multiple queues or multiple threads and require HSA_ENABLE_INTERRUPT=0 to eliminate them.
 * Max total coarse grain region limit is 8GB.
 * hsa_agent_get_exception_policies is not implemented.
 * Image import/export/copy/fill only support image created with memory from host accessible region.
 * hsa_system_get_extension_table is not implemented for HSA_EXTENSION_AMD_PROFILER.
 * hsa_ext_program_finalize has the following restrictions:
- * Programs that contain calls to functions defined in a different module are not supported.
- * When the "-g -O0" options (debugger enabled) are specified, only programs with a single module that contains one or more kernel are supported.
- * When the "-g -O0" options (debugger enabled) are specified, global variable debug information is not generated.
  * Control directives provided in a hsa_ext_program_finalize call are ignored.
 
 ### Disclaimer

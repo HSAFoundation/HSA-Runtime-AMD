@@ -30,7 +30,7 @@ OBJ_FILES := $(notdir $(C_FILES:.c=.o))
 all: vector_copy
 
 vector_copy: $(OBJ_FILES)
-	$(CC) $(LFLAGS) $(OBJ_FILES) -L../lib -lhsa-runtime64 -lhsa-runtime-ext64 -o vector_copy
+	$(CC) $(LFLAGS) $(OBJ_FILES) -L../lib -lhsa-runtime64 -o vector_copy
 
 %.o: %.c
 	$(CC) -c -I../include -o $@ $< -std=c99

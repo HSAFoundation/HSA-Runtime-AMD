@@ -49,6 +49,13 @@
 
 #include "hsa.h"
 
+#undef HSA_API
+#ifdef HSA_EXPORT_IMAGES
+#define HSA_API HSA_API_EXPORT
+#else
+#define HSA_API HSA_API_IMPORT
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif /*__cplusplus*/ 

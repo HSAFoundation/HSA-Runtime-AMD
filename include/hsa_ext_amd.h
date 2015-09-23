@@ -134,8 +134,8 @@ typedef enum hsa_amd_coherency_type_s {
 *
 * @retval ::HSA_STATUS_ERROR_INVALID_ARGUMENT @p type is NULL.
 */
-hsa_status_t HSA_API hsa_amd_coherency_get_type(hsa_agent_t agent,
-                                                hsa_amd_coherency_type_t* type);
+hsa_status_t HSA_API
+hsa_amd_coherency_get_type(hsa_agent_t agent, hsa_amd_coherency_type_t* type);
 
 /**
 * @brief Set the coherency type of the fine grain region of an agent.
@@ -153,19 +153,22 @@ hsa_status_t HSA_API hsa_amd_coherency_get_type(hsa_agent_t agent,
 *
 * @retval ::HSA_STATUS_ERROR_INVALID_ARGUMENT @p type is invalid.
 */
-hsa_status_t HSA_API hsa_amd_coherency_set_type(hsa_agent_t agent,
-                                                hsa_amd_coherency_type_t type);
+hsa_status_t HSA_API
+hsa_amd_coherency_set_type(hsa_agent_t agent, hsa_amd_coherency_type_t type);
 
 /**
  * @brief Structure containing profiling dispatch time information.
+ * 
+ * Times are reported as ticks in the domain of the HSA system clock.
+ * The HSA system clock tick and frequency is obtained via hsa_system_get_info.
  */
 typedef struct hsa_amd_profiling_dispatch_time_s {
   /**
-   * Profiling start time.
+   * Dispatch packet processing start time.
    */
   uint64_t start;
   /**
-   * Profiling end time.
+   * Dispatch packet completion time.
    */
   uint64_t end;
 } hsa_amd_profiling_dispatch_time_t;
@@ -187,16 +190,23 @@ typedef struct hsa_amd_profiling_dispatch_time_s {
 * @retval ::HSA_STATUS_ERROR_INVALID_ARGUMENT @p queue is NULL.
 */
 hsa_status_t HSA_API
-    hsa_amd_profiling_set_profiler_enabled(hsa_queue_t* queue, int enable);
+hsa_amd_profiling_set_profiler_enabled(hsa_queue_t* queue, int enable);
 
 /**
-* @brief Retrieve profiling dispatch time information.
+* @brief Retrieve packet processing time stamps.
 *
-* @param[in] agent A valid agent.
+* @param[in] agent The agent with which the signal was last used.  For instance,
+* if the profiled dispatch packet is dispatched on to queue Q, which was
+* created on agent A, then this parameter must be A.
 *
-* @param[in] signal A valid signal associated with a dispatch.
+* @param[in] signal A signal used as the completion signal of the dispatch
+* packet to retrieve time stamps from.  This dispatch packet must have been
+* issued to a queue with profiling enabled and have already completed.  Also
+* the signal must not have yet been used in any other packet following the
+* completion of the profiled dispatch packet.
 *
-* @param[out] time Profiling result.
+* @param[out] time Packet processing timestamps in the HSA system clock
+* domain.
 *
 * @retval ::HSA_STATUS_SUCCESS The function has been executed successfully.
 *
@@ -209,9 +219,9 @@ hsa_status_t HSA_API
 *
 * @retval ::HSA_STATUS_ERROR_INVALID_ARGUMENT @p time is NULL.
 */
-hsa_status_t HSA_API hsa_amd_profiling_get_dispatch_time(
-    hsa_agent_t agent, hsa_signal_t signal,
-    hsa_amd_profiling_dispatch_time_t* time);
+hsa_status_t HSA_API
+hsa_amd_profiling_get_dispatch_time(hsa_agent_t agent, hsa_signal_t signal,
+                                    hsa_amd_profiling_dispatch_time_t* time);
 
 /**
  * @brief Create a user mode SDMA queue.
@@ -254,10 +264,10 @@ hsa_status_t HSA_API hsa_amd_profiling_get_dispatch_time(
  *
  */
 hsa_status_t HSA_API
-    hsa_amd_queue_sdma_create(hsa_agent_t agent, size_t buffer_size,
-                              void* buffer_addr, uint64_t* queue_id,
-                              uint32_t** read_ptr, uint32_t** write_ptr,
-                              uint32_t** doorbell);
+hsa_amd_queue_sdma_create(hsa_agent_t agent, size_t buffer_size,
+                          void* buffer_addr, uint64_t* queue_id,
+                          uint32_t** read_ptr, uint32_t** write_ptr,
+                          uint32_t** doorbell);
 
 /**
  * @brief Destroy a user mode SDMA queue.
@@ -295,7 +305,7 @@ hsa_status_t HSA_API hsa_amd_queue_sdma_destroy(uint64_t queue_id);
  *
  * @param[in] arg Contains the user provided value given when the signal handler
  * was registered with hsa_amd_signal_async_handler
- * 
+ *
  * @retval true resumes monitoring the signal with this handler (as if calling
  * hsa_amd_signal_async_handler again with identical parameters)
  *
@@ -337,7 +347,7 @@ typedef bool (*hsa_amd_signal_handler)(hsa_signal_value_t value, void* arg);
  *
  * @retval ::HSA_STATUS_ERROR_NOT_INITIALIZED The HSA runtime has not been
  * initialized.
- * 
+ *
  * @retval ::HSA_STATUS_ERROR_INVALID_SIGNAL signal is not a valid hsa_signal_t
  *
  * @retval ::HSA_STATUS_ERROR_INVALID_ARGUMENT handler is invalid (NULL)
@@ -347,10 +357,9 @@ typedef bool (*hsa_amd_signal_handler)(hsa_signal_value_t value, void* arg);
  *
  */
 hsa_status_t HSA_API
-    hsa_amd_signal_async_handler(hsa_signal_t signal,
-                                 hsa_signal_condition_t cond,
-                                 hsa_signal_value_t value,
-                                 hsa_amd_signal_handler handler, void* arg);
+hsa_amd_signal_async_handler(hsa_signal_t signal, hsa_signal_condition_t cond,
+                             hsa_signal_value_t value,
+                             hsa_amd_signal_handler handler, void* arg);
 
 /**
  * @brief Wait for any signal-condition pair to be satisfied.
@@ -362,11 +371,11 @@ hsa_status_t HSA_API
  * function provides only relaxed memory semantics.
  */
 uint32_t HSA_API
-    hsa_amd_signal_wait_any(uint32_t signal_count, hsa_signal_t* signals,
-                            hsa_signal_condition_t* conds,
-                            hsa_signal_value_t* values, uint64_t timeout_hint,
-                            hsa_wait_state_t wait_hint,
-                            hsa_signal_value_t* satisfying_value);
+hsa_amd_signal_wait_any(uint32_t signal_count, hsa_signal_t* signals,
+                        hsa_signal_condition_t* conds,
+                        hsa_signal_value_t* values, uint64_t timeout_hint,
+                        hsa_wait_state_t wait_hint,
+                        hsa_signal_value_t* satisfying_value);
 
 /**
  * @brief Query image limits.
@@ -392,6 +401,33 @@ uint32_t HSA_API
 hsa_status_t HSA_API hsa_amd_image_get_info_max_dim(hsa_agent_t agent,
                                                     hsa_agent_info_t attribute,
                                                     void* value);
+
+/**
+ * @brief Set a CU affinity to specific queues within the process, this function
+ * call is "atomic".
+ *
+ * @param[in] queue A pointer to HSA queue.
+ *
+ * @param[in] num_cu_mask_count Size of CUMask bit array passed in.
+ *
+ * @param[in] cu_mask Bit-vector representing the CU mask.
+ *
+ * @retval ::HSA_STATUS_SUCCESS The function has been executed successfully.
+ *
+ * @retval ::HSA_STATUS_ERROR_NOT_INITIALIZED The HSA runtime has not been
+ * initialized.
+ *
+ * @retval ::HSA_STATUS_ERROR_INVALID_QUEUE @p queue is NULL or invalid.
+ *
+ * @retval ::HSA_STATUS_ERROR_INVALID_ARGUMENT @p num_cu_mask_count is not
+ * multiple of 32 or @p cu_mask is NULL.
+ *
+ * @retval ::HSA_STATUS_ERROR failed to call thunk api
+ *
+ */
+hsa_status_t HSA_API hsa_amd_queue_cu_set_mask(const hsa_queue_t* queue,
+                                               uint32_t num_cu_mask_count,
+                                               const uint32_t* cu_mask);
 
 #ifdef __cplusplus
 }  // end extern "C" block

@@ -112,6 +112,24 @@ int main(int argc, char **argv) {
     err = hsa_init();
     check(Initializing the hsa runtime, err);
 
+    /*
+     * Determine if the finalizer 1.0 extension is supported.
+     */
+    bool support;
+
+    err = hsa_system_extension_supported(HSA_EXTENSION_FINALIZER, 1, 0, &support);
+
+    check(Checking finalizer 1.0 extension support, err);
+
+    /*
+     * Generate the finalizer function table.
+     */
+    hsa_ext_finalizer_1_00_pfn_t table_1_00;
+
+    err = hsa_system_get_extension_table(HSA_EXTENSION_FINALIZER, 1, 0, &table_1_00);
+
+    check(Generating function table for finalizer, err);
+
     /* 
      * Iterate over the agents and pick the gpu agent using 
      * the get_gpu_agent callback.
@@ -155,13 +173,13 @@ int main(int argc, char **argv) {
      */
     hsa_ext_program_t program;
     memset(&program,0,sizeof(hsa_ext_program_t));
-    err = hsa_ext_program_create(HSA_MACHINE_MODEL_LARGE, HSA_PROFILE_FULL, HSA_DEFAULT_FLOAT_ROUNDING_MODE_DEFAULT, NULL, &program);
+    err = table_1_00.hsa_ext_program_create(HSA_MACHINE_MODEL_LARGE, HSA_PROFILE_FULL, HSA_DEFAULT_FLOAT_ROUNDING_MODE_DEFAULT, NULL, &program);
     check(Create the program, err);
 
     /*
      * Add the BRIG module to hsa program.
      */
-    err = hsa_ext_program_add_module(program, module);
+    err = table_1_00.hsa_ext_program_add_module(program, module);
     check(Adding the brig module to the program, err);
 
     /*
@@ -177,13 +195,13 @@ int main(int argc, char **argv) {
     hsa_ext_control_directives_t control_directives;
     memset(&control_directives, 0, sizeof(hsa_ext_control_directives_t));
     hsa_code_object_t code_object;
-    err = hsa_ext_program_finalize(program, isa, 0, control_directives, "", HSA_CODE_OBJECT_TYPE_PROGRAM, &code_object);
+    err = table_1_00.hsa_ext_program_finalize(program, isa, 0, control_directives, "", HSA_CODE_OBJECT_TYPE_PROGRAM, &code_object);
     check(Finalizing the program, err);
 
     /*
      * Destroy the program, it is no longer needed.
      */
-    err=hsa_ext_program_destroy(program);
+    err=table_1_00.hsa_ext_program_destroy(program);
     check(Destroying the program, err);
 
     /*

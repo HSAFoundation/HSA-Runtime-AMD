@@ -53,10 +53,27 @@
 #include <stdbool.h>
 #endif /* __cplusplus */
 
-// Placeholder for calling convention and import macros
+// Placeholder for calling convention and import/export macros
+#ifndef HSA_CALL
 #define HSA_CALL
-#undef HSA_API
-#define HSA_API HSA_CALL
+#endif
+
+#ifndef HSA_EXPORT_DECORATOR
+#ifdef __GNUC__
+#define HSA_EXPORT_DECORATOR __attribute__ ((visibility ("default")))
+#else
+#define HSA_EXPORT_DECORATOR
+#endif
+#endif
+
+#define HSA_API_EXPORT HSA_EXPORT_DECORATOR HSA_CALL
+#define HSA_API_IMPORT HSA_CALL
+
+#if !defined(HSA_API) && defined(HSA_EXPORT)
+#define HSA_API HSA_API_EXPORT
+#else
+#define HSA_API HSA_API_IMPORT
+#endif
 
 // Detect and set large model builds.
 #undef HSA_LARGE_MODEL
@@ -79,8 +96,6 @@
 #else
 #error "BIGENDIAN_CPU or LITTLEENDIAN_CPU must be defined"
 #endif
-
-#define OBSIDIAN_RUNTIME
 
 #ifdef __cplusplus
 extern "C" {
