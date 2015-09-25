@@ -112,6 +112,7 @@ An unsuccessful execution will indicate the step that failed.
 * hsa_system_get_extension_table is not implemented for HSA_EXTENSION_AMD_PROFILER.
 * hsa_ext_program_finalize has the following restrictions:
  * Control directives provided in a hsa_ext_program_finalize call are ignored.
+* Queue changes (additions or deletions) in any HSA process while dispatches are running can result in premature termination of running dispatches.
 
 ### Disclaimer
 
