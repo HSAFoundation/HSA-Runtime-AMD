@@ -1,4 +1,4 @@
-## The HSA-Runtime- AMD Project has been supercedded by ROCm - GDB Source Project located at https://github.com/RadeonOpenCompute/ROCR-Runtime
+## The HSA-Runtime- AMD Project has been supercedded by ROCR-Runtime Project located at https://github.com/RadeonOpenCompute/ROCR-Runtime
 
 ### AMD Heterogeneous System Architecture HSA - HSA Runtime release for AMD Kaveri & Carrizo APUs
 
