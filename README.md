@@ -1,3 +1,5 @@
+## The HSA-Runtime- AMD Project has been supercedded by ROCm - GDB Source Project located at https://github.com/RadeonOpenCompute/ROCR-Runtime
+
 ### AMD Heterogeneous System Architecture HSA - HSA Runtime release for AMD Kaveri & Carrizo APUs
 
 This package includes the user-mode API interfaces and libraries necessary for host applications to launch compute kernels to available HSA kernel agent. This version implements the 1.0 Final HSA Runtime Programmer's Reference Manual and targets AMD Kaveri & Carrizo series APUs on supported platforms. The package is compatible with the 1.6 version of the HSA driver set. See the HSA-docs repository at https://github.com/HSAFoundation/HSA-docs/wiki for more information regarding target platforms, documentation and usage.
