@@ -306,7 +306,7 @@ typedef enum {
  * @retval ::HSA_STATUS_ERROR_REFCOUNT_OVERFLOW The HSA runtime reference
  * count reaches INT32_MAX.
  */
-hsa_status_t HSA_API hsa_init();
+hsa_status_t HSA_API hsa_init(void);
 
 /**
  * @brief Shut down the HSA runtime.
@@ -328,7 +328,7 @@ hsa_status_t HSA_API hsa_init();
  * initialized.
  *
  */
-hsa_status_t HSA_API hsa_shut_down();
+hsa_status_t HSA_API hsa_shut_down(void);
 
 /** @} **/
 
