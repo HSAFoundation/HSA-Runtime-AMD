@@ -81,6 +81,13 @@
 #define HSA_LARGE_MODEL
 #endif
 
+// Definition of ENDIANESS macros.
+#if defined(__BIG_ENDIAN) && !defined(BIGENDIAN_CPU)
+#define BIGENDIAN_CPU
+#elif defined(__LITTLE_ENDIAN) && !defined(LITTLEENDIAN_CPU)
+#define LITTLEENDIAN_CPU
+#endif
+
 // Try to detect CPU endianness
 #if !defined(LITTLEENDIAN_CPU) && !defined(BIGENDIAN_CPU)
 #if defined(__i386__) || defined(__x86_64__) || defined(_M_IX86) || \
